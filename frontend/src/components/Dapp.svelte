@@ -36,6 +36,7 @@
             userName = results[0].get("name");
             currFolder = results[0].get("root");
             navArray.push(currFolder);
+            getFavoriteFiles();
         } else {
             userName = undefined;
             currFolder = undefined;
@@ -58,7 +59,6 @@
 			}
 		}
         login();
-        getFavoriteFiles();
     })
 
     const onFolderEnter = (e)=>{

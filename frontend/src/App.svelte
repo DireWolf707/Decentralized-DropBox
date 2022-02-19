@@ -3,7 +3,7 @@
     import { defaultEvmStores,connected,selectedAccount,chainId } from 'svelte-web3';
     import Dapp from "./components/Dapp.svelte"
 
-    let development = true;
+    let development = false;
     $: chain = development ? "Localhost" : "Rinkeby";
 
     async function connectWallet(){
