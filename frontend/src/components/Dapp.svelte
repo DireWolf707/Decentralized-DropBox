@@ -14,6 +14,7 @@
     let currFolder;
     let isLoaded=false;
     let navArray=[];
+    let favFiles=[];
 
     $: onAccountChange($selectedAccount)
     const onAccountChange = ()=>{
@@ -57,6 +58,7 @@
 			}
 		}
         login();
+        getFavoriteFiles();
     })
 
     const onFolderEnter = (e)=>{
@@ -68,6 +70,14 @@
         navArray = navArray.slice(0,e.detail);
         currFolder = navArray[e.detail - 1];
     }
+
+    const getFavoriteFiles = async ()=>{
+        const q1 = new Moralis.Query('File');
+        q1.descending('createdAt');
+        q1.equalTo('fav',true);
+        q1.equalTo('address',($selectedAccount).toLocaleLowerCase());
+        favFiles = await q1.find();
+    }
 </script>
 
 <Header {userName} />
@@ -75,11 +85,11 @@
     {#if userName}
         <div class="flex mt-8 mx-24">
             <div class="w-1/5">
-                <SideBar {currFolder} />
+                <SideBar {favFiles} />
             </div>
             <div class="w-4/5 border-l">
                 <Nav {navArray} on:onFolderBackward={onFolderBackward} />
-                <DropBox {contract} {currFolder} on:onFolderEnter={onFolderEnter} />
+                <DropBox {contract} {currFolder} on:onFolderEnter={onFolderEnter} on:getFavoriteFiles={getFavoriteFiles} />
             </div>
         </div>
     {:else}

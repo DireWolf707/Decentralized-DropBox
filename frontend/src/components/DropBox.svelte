@@ -77,7 +77,8 @@
         let res = await q.find();
         res = res[0];
         res.set('fav',!res.get('fav'));
-        res.save();
+        await res.save();
+        dispatch('getFavoriteFiles');
     }
 
     const fileSizeCalc = (bytes, decimals = 2)=>{

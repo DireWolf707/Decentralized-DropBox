@@ -3,29 +3,12 @@
     import { onMount,onDestroy } from "svelte";
     import { selectedAccount } from 'svelte-web3';
 
+    export let favFiles;
     let recentFiles=[];
-    let favoriteFiles=[];
-    let s1,s2;
+    let s2;
 
     onMount(async ()=>{
         Moralis.LiveQuery.close();
-
-        const q1 = new Moralis.Query('File');
-        q1.descending('createdAt');
-        q1.equalTo('fav',true);
-        q1.equalTo('address',($selectedAccount).toLocaleLowerCase());
-        favoriteFiles = await q1.find();
-
-        s1 = await q1.subscribe();
-        s1.on('open', async() => {
-            console.log("sadsad");
-        });
-        s1.on('enter', async() => {
-            favoriteFiles = await q1.find();
-        });
-        s1.on('leave', async() => {
-            favoriteFiles = await q1.find();
-        });
 
         const q2 = new Moralis.Query('File');
         q2.descending('createdAt');
@@ -40,7 +23,6 @@
     })
 
     onDestroy(()=>{
-        s1.unsubscribe();
         s2.unsubscribe();
     })
 
@@ -63,7 +45,7 @@
 
 <div class="mt-4">
     <div class="text-lg underline underline-offset-1">Favorite</div>
-    {#each favoriteFiles as file}
+    {#each favFiles as file}
         <div class="ml-2">
             <a href="ipfs://{file.get("hash")}" target="_blank">{file.get('name')}</a>
         </div>
