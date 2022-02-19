@@ -7,6 +7,7 @@
     import DropBox from "./DropBox.svelte";
     import Header from "./Header.svelte";
     import Nav from "./Nav.svelte";
+    import SideBar from "./SideBar.svelte";
 
     let contract;
     let userName;
@@ -42,11 +43,19 @@
         isLoaded = true;
     }
 
-    onMount(()=>{
+    onMount(async ()=>{
         contract = new $web3.eth.Contract(abi,address);
         const serverUrl = "https://andl7efdyriy.usemoralis.com:2053/server";
 		const appId = "xnPSSx1r1F7bosll03rFAGS2XjBDvycThrYWy9dc";
 		Moralis.start({ serverUrl, appId });
+        let user = Moralis.User.current();
+		if (!user) {
+			try {
+				user = await Moralis.authenticate({ signingMessage: "Log in using Moralis" })
+			} catch (error) {
+				console.log(error);
+			}
+		}
         login();
     })
 
@@ -64,8 +73,15 @@
 <Header {userName} />
 {#if isLoaded}
     {#if userName}
-        <Nav {navArray} on:onFolderBackward={onFolderBackward} />
-        <DropBox {contract} {currFolder} on:onFolderEnter={onFolderEnter} />
+        <div class="flex mt-8 mx-24">
+            <div class="w-1/5">
+                <SideBar {currFolder} />
+            </div>
+            <div class="w-4/5 border-l">
+                <Nav {navArray} on:onFolderBackward={onFolderBackward} />
+                <DropBox {contract} {currFolder} on:onFolderEnter={onFolderEnter} />
+            </div>
+        </div>
     {:else}
         <SignUp on:login={login} />
     {/if}

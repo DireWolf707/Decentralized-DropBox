@@ -7,7 +7,7 @@
 </script>
 
 {#if navArray}
-    <div class="mx-6 mt-8 text-lg flex">
+    <div class="mx-6 my-6 text-lg flex border-b">
     {#each navArray as nav, i}
         <button on:click="{()=>{dispatch('onFolderBackward',i+1)}}"
         class="{count == i ? 'font-bold' : ''} mx-2 hover:underline hover:underline-offset-1">
