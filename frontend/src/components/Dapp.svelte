@@ -58,7 +58,9 @@
 			} catch (error) {
 				console.log(error);
 			}
-		}
+		} else {
+            Moralis.enableWeb3();
+        }
         login();
     })
 
