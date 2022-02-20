@@ -11,7 +11,6 @@
         const folder = new Folder();
         folder.set('name','root');
         folder.set('address',($selectedAccount).toLowerCase());
-        folder.set('fav',false);
         
         const CustomUser = Moralis.Object.extend('CustomUser');
         const user = new CustomUser();

@@ -31,7 +31,6 @@
         folder.set('name',newFolderName);
         folder.set('parent',currFolder);
         folder.set('address',($selectedAccount).toLowerCase());
-        folder.set('fav',false);
         await folder.save();
         newFolderName="";
         onCurrFolderChnage();
@@ -132,7 +131,7 @@
                     <td class="px-4 py-3">folder</td>
                     <td class="px-4 py-3 text-lg text-gray-900">-</td>
                     <td class="w-10 text-center">
-                        <input type="checkbox" on:click="{()=>{toggleFavorate('Folder',folder.id)}}" checked="{folder.get('fav')}">
+                        -
                     </td>
                     </tr>
                 {/each}
