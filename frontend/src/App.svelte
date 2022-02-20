@@ -9,7 +9,6 @@
     async function connectWallet(){
         await defaultEvmStores.setProvider();
     }
-    $:console.log($chainId);
 
     onMount(()=>{
         connectWallet();

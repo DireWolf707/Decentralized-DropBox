@@ -2,14 +2,12 @@
     import Moralis from 'moralis/dist/moralis.min.js';
     import { onMount } from "svelte";
     import { selectedAccount,web3 } from 'svelte-web3';
-    import { abi,address } from "../contract";
     import SignUp from "./SignUp.svelte";
     import DropBox from "./DropBox.svelte";
     import Header from "./Header.svelte";
     import Nav from "./Nav.svelte";
     import SideBar from "./SideBar.svelte";
 
-    let contract;
     let userName;
     let currFolder;
     let isLoaded=false;
@@ -47,9 +45,8 @@
     }
 
     onMount(async ()=>{
-        contract = new $web3.eth.Contract(abi,address);
-        const serverUrl = "https://andl7efdyriy.usemoralis.com:2053/server";
-		const appId = "xnPSSx1r1F7bosll03rFAGS2XjBDvycThrYWy9dc";
+        const serverUrl = "https://ymm3lqg546em.usemoralis.com:2053/server";
+		const appId = "9hWXuvzeiqPhjtL3fNgf6lbK5kiapBDH9PLEumGU";
 		Moralis.start({ serverUrl, appId });
         let user = Moralis.User.current();
 		if (!user) {
@@ -92,7 +89,7 @@
             </div>
             <div class="w-4/5 border-l">
                 <Nav {navArray} on:onFolderBackward={onFolderBackward} />
-                <DropBox {contract} {currFolder} on:onFolderEnter={onFolderEnter} on:getFavoriteFiles={getFavoriteFiles} />
+                <DropBox {currFolder} on:onFolderEnter={onFolderEnter} on:getFavoriteFiles={getFavoriteFiles} />
             </div>
         </div>
     {:else}

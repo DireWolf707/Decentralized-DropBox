@@ -3,7 +3,6 @@
     import { createEventDispatcher } from "svelte";
     import { selectedAccount } from 'svelte-web3';
 
-    export let contract;
     export let currFolder;
     let newFolderName="";
     let newFile;
@@ -48,7 +47,6 @@
         const hash = _newFile.hash();
         //sending to ethereum
         try {
-            await contract.methods.uploadFile(hash, _file.size, _file.type, _file.name).send({from:$selectedAccount});  
             //updating table
             const File = Moralis.Object.extend('File');
             const file = new File();
