@@ -1,0 +1,6 @@
+- imporved UI (animation, icons, etc.)
+- functionality to search for files and folder
+- functionality to sort current folder
+- functionality to share files with other
+- functionality to hide/archive files
+- functionality to change file directory
